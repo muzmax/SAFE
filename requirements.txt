@@ -1,0 +1,7 @@
+pytorch
+numpy
+yaml
+pil
+scipy
+sklearn
+matplpotlib

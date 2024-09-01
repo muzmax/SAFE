@@ -1,0 +1,40 @@
+device: 'cuda'
+print_frequency: 100
+data:
+  num_workers: 0
+  train_dir: './data/SAFE' # folder where subfolders are stored
+  save_dir: './pipeline/out/encoder_1ch_example' # weights path
+  batch_size: 128 
+  stride: 100
+  patch_size: 100
+  global_crop_size: 64
+  local_crop_size: 32
+  global_views: 1 # in adition to the teacher view
+  local_views: 3
+  subres_crop: True
+  shift_param : [0.8,0.2,0.5] # [proba,min,max] for value shift
+model:
+  patch_size: 8
+  patch_drop: 0.3
+  num_proto: 512
+  freeze_proto: False
+  channels: 1
+  drop_path_rate: 0.1
+  model_name: vit_tiny
+  output_dim: 192 # output of head / proto shape
+  use_bn: true
+  use_norm: true
+optimization:
+  optimizer: 'adamw'
+  teacher_temperature: 0.04
+  epochs: 600
+  encoder:
+    lr: 5.0e-4
+    final_lr: 1.0e-6
+    warmup_epochs: 2
+  weight_decay:
+    base_value: 0.04
+    final_value: 0.4
+  momentum:
+    base_value: 0.9995
+    final_value: 1
